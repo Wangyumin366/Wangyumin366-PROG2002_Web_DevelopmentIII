@@ -20,7 +20,7 @@ export interface Category {
 }
 
 export interface Donation {
-  DONATION_ID: number;
+  DONATION_ID?: number;
   DATE: Date;
   AMOUNT: number;
   GIVER: string;

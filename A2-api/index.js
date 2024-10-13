@@ -104,14 +104,14 @@ app.get('/fundraisers/donations/:id', (req, res) => {
 
 // Insert a new fundraisers donation
 app.post('/fundraisers/donations', (req, res) => {
-  const { amount, giver, fundraiserId } = req.body;
+  const { AMOUNT, GIVER, FUNDRAISER_ID } = req.body;
 
-  if (!giver || !fundraiserId) {
+  if (!GIVER || !FUNDRAISER_ID) {
     res.status(400).json({ error: 'Amount or fundraiserId required.' })
     return
   }
 
-  if (!isNumber(amount) || amount < 5) {
+  if (!isNumber(AMOUNT) || AMOUNT < 5) {
     res.status(400).json({ error: 'Amount is not correct format.' })
     return
   }
@@ -121,7 +121,7 @@ app.post('/fundraisers/donations', (req, res) => {
         VALUES(?,?,?,?) 
     `;
   const date = new Date()
-  dbConnection.query(query, [date, amount, giver, fundraiserId], (error, rows) => {
+  dbConnection.query(query, [date, AMOUNT, GIVER, FUNDRAISER_ID], (error, rows) => {
     if (error) {
       console.error('Error:', error);
       return res.status(500).send('System error');
