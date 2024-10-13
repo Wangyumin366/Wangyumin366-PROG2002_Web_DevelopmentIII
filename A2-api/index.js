@@ -173,6 +173,56 @@ app.post('/fundraisers', (req, res) => {
   });
 });
 
+// Update a new fundraisers
+app.update('/fundraisers/:id', (req, res) => {
+  const { organizer, caption, targetFunding, currentFunding, city, categoryId, active } = req.body;
+
+  if (!organizer || !caption || !city) {
+    res.status(400).json({ error: 'Organizer or caption or city required.' })
+    return
+  }
+
+  if (active == null) {
+    res.status(400).json({ error: 'Active required.' })
+    return
+  }
+
+  if (!isNumber(targetFunding) || targetFunding <= 0) {
+    res.status(400).json({ error: 'Target funding not correct format.' })
+    return
+  }
+
+  if (!isNumber(currentFunding) || currentFunding < 0) {
+    res.status(400).json({ error: 'Current funding not correct format.' })
+    return
+  }
+
+  if (!isNumber(categoryId)) {
+    res.status(400).json({ error: 'CategoryId not correct format.' })
+    return
+  }
+
+  const query = `
+        UPDATE fundraiser
+        SET ORGANIZER = ?, 
+            CAPTION = ?, 
+            TARGET_FUNDING = ?, 
+            CURRENT_FUNDING = ?, 
+            CITY = ?, 
+            CATEGORY_ID = ?, 
+            ACTIVE = ?
+        WHERE FUNDRAISER_ID = ?;
+    `;
+
+  dbConnection.query(query, [organizer, caption, targetFunding, currentFunding, city, categoryId, active, req.params.id], (error, rows) => {
+    if (error) {
+      console.error('Error:', error);
+      return res.status(500).send('System error');
+    }
+    res.json(rows);
+  });
+});
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
