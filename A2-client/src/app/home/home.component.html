@@ -17,9 +17,16 @@
   <p>From large-scale charity campaigns to personal emergency needs, we uphold principles of transparency and fairness to ensure that every contribution is responsibly managed and directly benefits those in need. We believe that the power to change the world comes from those willing to lend a helping hand.</p>
   <p>Join us in offering hope to those in need and passing on the torch of care and compassion. Together, we can make a lasting impact.</p>
   <div id="card_list" class="card-list">
-    <div class="card">
-      <h3></h3>
-      <p></p>
+    <div class="card" *ngFor="let fundraiser of fundraisers">
+      <h3>{{fundraiser.CAPTION}}</h3>
+      <p>ID: {{fundraiser.FUNDRAISER_ID}}</p>
+      <p>Organiser: {{fundraiser.ORGANIZER}}</p>
+      <p>Target funding: {{fundraiser.TARGET_FUNDING}} AUD</p>
+      <p>Current funding: {{fundraiser.CURRENT_FUNDING}}</p>
+      <p>City: {{fundraiser.CITY}}</p>
+      <p>Active: {{fundraiser.ACTIVE ? "active" : "not suspended"}}</p>
+      <p>Category: {{fundraiser.NAME}}</p>
+      <a routerLink="/fundraiser/{{fundraiser.FUNDRAISER_ID}}">More</a>
     </div>
   </div>
 </main>

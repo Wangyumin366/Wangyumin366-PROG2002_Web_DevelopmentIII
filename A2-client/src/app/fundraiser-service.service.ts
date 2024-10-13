@@ -11,6 +11,7 @@ export interface Fundraiser {
   CITY: string;
   CATEGORY_ID: number;
   ACTIVE: boolean;
+  NAME?: string;
 }
 
 export interface Category {
@@ -39,11 +40,11 @@ export class FundraiserServiceService {
   }
 
   getCategories() : Observable<Category[]> {
-    return this.httpClient.get(`${this.host}/categories`)
+    return this.httpClient.get<Category[]>(`${this.host}/categories`)
   }
 
   getFundraisers() : Observable<Fundraiser[]> {
-    return this.httpClient.get(`${this.host}/fundraisers`)
+    return this.httpClient.get<Fundraiser[]>(`${this.host}/fundraisers`)
   }
 
   searchForFundraisers(
@@ -51,31 +52,31 @@ export class FundraiserServiceService {
     CITY: string,
     CATEGORY_ID: number
   ) : Observable<Fundraiser[]> {
-    return this.httpClient.get(`${this.host}/fundraisers/search?ORGANIZER=${ORGANIZER}&CITY=${CITY}&CATEGORY_ID=${CATEGORY_ID}`)
+    return this.httpClient.get<Fundraiser[]>(`${this.host}/fundraisers/search?ORGANIZER=${ORGANIZER}&CITY=${CITY}&CATEGORY_ID=${CATEGORY_ID}`)
   }
 
   getFundraiserById(FUNDRAISER_ID: number) : Observable<Fundraiser> {
-    return this.httpClient.get(`${this.host}/fundraisers/` + FUNDRAISER_ID)
+    return this.httpClient.get<Fundraiser>(`${this.host}/fundraisers/` + FUNDRAISER_ID)
   }
 
   addFundraiser(FUNDRAISER: Fundraiser) : Observable<any> {
-    return this.httpClient.post(`${this.host}/fundraisers`, FUNDRAISER)
+    return this.httpClient.post<any>(`${this.host}/fundraisers`, FUNDRAISER)
   }
 
   editFundraiser(FUNDRAISER_ID: number, FUNDRAISER: Fundraiser) : Observable<any> {
-    return this.httpClient.put(`${this.host}/fundraisers/` + FUNDRAISER_ID, FUNDRAISER)
+    return this.httpClient.put<any>(`${this.host}/fundraisers/` + FUNDRAISER_ID, FUNDRAISER)
   }
 
   deleteFundraiser(FUNDRAISER_ID: number) : Observable<any> {
-    return this.httpClient.delete(`${this.host}/fundraisers/` + FUNDRAISER_ID)
+    return this.httpClient.delete<any>(`${this.host}/fundraisers/` + FUNDRAISER_ID)
   }
 
   getDonations(FUNDRAISER_ID: number) : Observable<Donation[]> {
-    return this.httpClient.get(`${this.host}/fundraisers/donations/` + FUNDRAISER_ID)
+    return this.httpClient.get<Donation[]>(`${this.host}/fundraisers/donations/` + FUNDRAISER_ID)
   }
 
   addDonation(DONATION: Donation) : Observable<any> {
-    return this.httpClient.post(`${this.host}/fundraisers/donations`, DONATION)
+    return this.httpClient.post<any>(`${this.host}/fundraisers/donations`, DONATION)
   }
 }
 
