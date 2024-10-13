@@ -5,6 +5,7 @@ import { SearchComponent } from "./search/search.component";
 import { FundraiserComponent } from "./fundraiser/fundraiser.component";
 import { DonationComponent } from "./donation/donation.component";
 import { AdminHomeComponent } from "./admin-home/admin-home.component";
+import { CreateFundraiserComponent } from "./create-fundraiser/create-fundraiser.component";
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
   {
     path: 'admin',
     component: AdminHomeComponent
+  },
+  {
+    path: 'create-fundraiser',
+    component: CreateFundraiserComponent
   }
 ];
 

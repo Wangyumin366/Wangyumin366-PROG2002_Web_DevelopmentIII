@@ -147,29 +147,29 @@ app.post('/fundraisers/donations', (req, res) => {
 
 // Insert a new fundraisers
 app.post('/fundraisers', (req, res) => {
-  const { organizer, caption, targetFunding, currentFunding, city, categoryId, active } = req.body;
+  const { ORGANIZER, CAPTION, TARGET_FUNDING, CURRENT_FUNDING, CITY, CATEGORY_ID, ACTIVE } = req.body;
 
-  if (!organizer || !caption || !city) {
+  if (!ORGANIZER || !CAPTION || !CITY) {
     res.status(400).json({ error: 'Organizer or caption or city required.' })
     return
   }
 
-  if (active == null) {
+  if (ACTIVE == null) {
     res.status(400).json({ error: 'Active required.' })
     return
   }
 
-  if (!isNumber(targetFunding) || targetFunding <= 0) {
+  if (!isNumber(TARGET_FUNDING) || TARGET_FUNDING <= 0) {
     res.status(400).json({ error: 'Target funding not correct format.' })
     return
   }
 
-  if (!isNumber(currentFunding) || currentFunding < 0) {
+  if (!isNumber(CURRENT_FUNDING) || CURRENT_FUNDING < 0) {
     res.status(400).json({ error: 'Current funding not correct format.' })
     return
   }
 
-  if (!isNumber(categoryId)) {
+  if (!isNumber(CATEGORY_ID)) {
     res.status(400).json({ error: 'CategoryId not correct format.' })
     return
   }
@@ -179,7 +179,7 @@ app.post('/fundraisers', (req, res) => {
         VALUES(?,?,?,?,?,?,?) 
     `;
 
-  dbConnection.query(query, [organizer, caption, targetFunding, currentFunding, city, categoryId, active], (error, rows) => {
+  dbConnection.query(query, [ORGANIZER, CAPTION, TARGET_FUNDING, CURRENT_FUNDING, CITY, CATEGORY_ID, ACTIVE], (error, rows) => {
     if (error) {
       console.error('Error:', error);
       return res.status(500).send('System error');
@@ -190,29 +190,29 @@ app.post('/fundraisers', (req, res) => {
 
 // Update a new fundraisers
 app.put('/fundraisers/:id', (req, res) => {
-  const { organizer, caption, targetFunding, currentFunding, city, categoryId, active } = req.body;
+  const { ORGANIZER, CAPTION, TARGET_FUNDING, CURRENT_FUNDING, CITY, CATEGORY_ID, ACTIVE } = req.body;
 
-  if (!organizer || !caption || !city) {
+  if (!ORGANIZER || !CAPTION || !CITY) {
     res.status(400).json({ error: 'Organizer or caption or city required.' })
     return
   }
 
-  if (active == null) {
+  if (ACTIVE == null) {
     res.status(400).json({ error: 'Active required.' })
     return
   }
 
-  if (!isNumber(targetFunding) || targetFunding <= 0) {
+  if (!isNumber(TARGET_FUNDING) || TARGET_FUNDING <= 0) {
     res.status(400).json({ error: 'Target funding not correct format.' })
     return
   }
 
-  if (!isNumber(currentFunding) || currentFunding < 0) {
+  if (!isNumber(CURRENT_FUNDING) || CURRENT_FUNDING < 0) {
     res.status(400).json({ error: 'Current funding not correct format.' })
     return
   }
 
-  if (!isNumber(categoryId)) {
+  if (!isNumber(CATEGORY_ID)) {
     res.status(400).json({ error: 'CategoryId not correct format.' })
     return
   }
@@ -229,7 +229,7 @@ app.put('/fundraisers/:id', (req, res) => {
         WHERE FUNDRAISER_ID = ?;
     `;
 
-  dbConnection.query(query, [organizer, caption, targetFunding, currentFunding, city, categoryId, active, req.params.id], (error, rows) => {
+  dbConnection.query(query, [ORGANIZER, CAPTION, TARGET_FUNDING, CURRENT_FUNDING, CITY, CATEGORY_ID, ACTIVE, req.params.id], (error, rows) => {
     if (error) {
       console.error('Error:', error);
       return res.status(500).send('System error');

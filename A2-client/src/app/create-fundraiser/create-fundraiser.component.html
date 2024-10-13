@@ -1,0 +1,52 @@
+
+<!-- Header with Navigation -->
+<header>
+  <nav>
+    <ul>
+      <li><a routerLink="/admin">Home</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- Main Content with Card List -->
+<main>
+  <img src="assets/images/about-us-header-bg.jpg" style="width: 100%; height: 300px;object-fit: cover">
+
+  <div class="search-form">
+    <label for="organizer">Organizer:</label>
+    <input type="text" id="organizer" name="ORGANIZER" placeholder="Enter organizer name" [(ngModel)]="fundraiser.ORGANIZER">
+
+    <label for="caption">Caption:</label>
+    <input type="text" id="caption" name="caption" placeholder="Enter caption" [(ngModel)]="fundraiser.CAPTION">
+
+    <label for="target_funding">Target Funding:</label>
+    <input type="number" id="target_funding" name="target_funding" placeholder="Enter target funding" [(ngModel)]="fundraiser.TARGET_FUNDING">
+
+    <label for="current_funding">Current Funding:</label>
+    <input type="number" id="current_funding" name="current_funding" placeholder="Enter current funding" [(ngModel)]="fundraiser.CURRENT_FUNDING">
+
+    <label for="city">City:</label>
+    <input type="text" id="city" name="CITY" placeholder="Enter city name" [(ngModel)]="fundraiser.CITY">
+
+    <label for="category">Category:</label>
+    <select id="category" name="CATEGORY_ID" [(ngModel)]="fundraiser.CATEGORY_ID">
+      <option [value]="0">Select a category</option>
+      <option *ngFor="let category of categories" [value]="category.CATEGORY_ID">{{category.NAME}}</option>
+    </select>
+
+    <label for="status">Status:</label>
+    <select id="status" name="status" [(ngModel)]="fundraiser.ACTIVE">
+      <option [value]="-1">Select a status</option>
+      <option [value]="false">Inactive</option>
+      <option [value]="true">Active</option>
+    </select>
+
+    <button id="search_btn" (click)="doCreate()">Create</button>
+    <button id="clear_btn" style="margin-top: 10px" (click)="clear()">Clear</button>
+  </div>
+</main>
+
+<!-- Footer with Contact Info -->
+<footer>
+  <p>Contact Us: admin&#64;cooperatives.com, Phone: +564-842-9515</p>
+</footer>

@@ -10,6 +10,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
 import { DonationComponent } from './donation/donation.component';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
+import { CreateFundraiserComponent } from './create-fundraiser/create-fundraiser.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { AdminHomeComponent } from './admin-home/admin-home.component';
     SearchComponent,
     FundraiserComponent,
     DonationComponent,
-    AdminHomeComponent
+    AdminHomeComponent,
+    CreateFundraiserComponent
   ],
   imports: [
     BrowserModule,
