@@ -2,38 +2,46 @@
 <header>
   <nav>
     <ul>
-      <li><a href="./home.html">Home</a></li>
-      <li><a href="./search.html">Search</a></li>
-      <li><a href="./fundraiser.html">Fundraiser</a></li>
+      <li><a routerLink="/">Home</a></li>
+      <li><a routerLink="search">Search</a></li>
     </ul>
   </nav>
 </header>
 
 <!-- Main Content with Card List -->
 <main>
-  <img src="./images/about-us-header-bg.jpg" style="width: 100%; height: 300px;object-fit: cover">
+  <img src="assets/images/about-us-header-bg.jpg" style="width: 100%; height: 300px;object-fit: cover">
 
   <div class="search-form">
     <label for="organizer">Organizer:</label>
-    <input type="text" id="organizer" name="ORGANIZER" placeholder="Enter organizer name">
+    <input type="text" id="organizer" name="ORGANIZER" placeholder="Enter organizer name" [(ngModel)]="organizer">
 
     <label for="city">City:</label>
-    <input type="text" id="city" name="CITY" placeholder="Enter city name">
+    <input type="text" id="city" name="CITY" placeholder="Enter city name" [(ngModel)]="city">
 
     <label for="category">Category:</label>
-    <select id="category" name="CATEGORY_ID">
-      <option value="">Select a category</option>
+    <select id="category" name="CATEGORY_ID" [(ngModel)]="category">
+      <option [value]="0">Select a category</option>
+      <option *ngFor="let category of categories" [value]="category.CATEGORY_ID">{{category.NAME}}</option>
     </select>
 
-    <button id="search_btn">Search</button>
-    <button id="clear_btn" style="margin-top: 10px">Clear</button>
+    <button id="search_btn" (click)="doSearch()">Search</button>
+    <button id="clear_btn" style="margin-top: 10px" (click)="clearChechboxes()">Clear</button>
   </div>
 
   <div id="card_list" class="card-list">
-    <div class="card">
-      <h3></h3>
-      <p></p>
+    <div class="card" *ngFor="let fundraiser of fundraisers">
+      <h3>{{fundraiser.CAPTION}}</h3>
+      <p>ID: {{fundraiser.FUNDRAISER_ID}}</p>
+      <p>Organiser: {{fundraiser.ORGANIZER}}</p>
+      <p>Target funding: {{fundraiser.TARGET_FUNDING}} AUD</p>
+      <p>Current funding: {{fundraiser.CURRENT_FUNDING}}</p>
+      <p>City: {{fundraiser.CITY}}</p>
+      <p>Active: {{fundraiser.ACTIVE ? "active" : "not suspended"}}</p>
+      <p>Category: {{fundraiser.NAME}}</p>
+      <a href="./fundraiser.html?id={{fundraiser.FUNDRAISER_ID}}">More</a>
     </div>
+    <p *ngIf="fundraisers.length===0&&isSearch" style='color: #dc1010;font-weight: bolder'>no fundraisers are found!</p>
   </div>
 </main>
 
