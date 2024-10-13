@@ -1,69 +1,74 @@
--- MySQL dump 10.13  Distrib 8.0.38, for Win64 (x86_64)
---
--- Host: localhost    Database: crowdfunding_db
--- ------------------------------------------------------
--- Server version	8.0.29
+/*
+ Navicat Premium Data Transfer
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+ Source Server         : mysql-local
+ Source Server Type    : MySQL
+ Source Server Version : 80029
+ Source Host           : localhost:3306
+ Source Schema         : crowdfunding_db
 
---
--- Table structure for table `category`
---
+ Target Server Type    : MySQL
+ Target Server Version : 80029
+ File Encoding         : 65001
 
+ Date: 14/10/2024 01:37:12
+*/
+
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for category
+-- ----------------------------
 DROP TABLE IF EXISTS `category`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `category` (
+CREATE TABLE `category`  (
   `CATEGORY_ID` int NOT NULL AUTO_INCREMENT,
-  `NAME` varchar(45) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  PRIMARY KEY (`CATEGORY_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `NAME` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`CATEGORY_ID`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
---
--- Dumping data for table `category`
---
+-- ----------------------------
+-- Records of category
+-- ----------------------------
+INSERT INTO `category` VALUES (1, 'medical');
+INSERT INTO `category` VALUES (2, 'education');
+INSERT INTO `category` VALUES (3, 'social impact');
+INSERT INTO `category` VALUES (4, 'arts & culture');
+INSERT INTO `category` VALUES (5, 'animal welfare');
 
-LOCK TABLES `category` WRITE;
-/*!40000 ALTER TABLE `category` DISABLE KEYS */;
-INSERT INTO `category` VALUES (1,'medical'),(2,'education'),(3,'social impact'),(4,'arts & culture'),(5,'animal welfare');
-/*!40000 ALTER TABLE `category` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `fundraiser`
---
-
+-- ----------------------------
+-- Table structure for fundraiser
+-- ----------------------------
 DROP TABLE IF EXISTS `fundraiser`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `fundraiser` (
+CREATE TABLE `fundraiser`  (
   `FUNDRAISER_ID` int NOT NULL AUTO_INCREMENT,
-  `ORGANIZER` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `CAPTION` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `TARGET_FUNDING` int DEFAULT NULL,
-  `CURRENT_FUNDING` int DEFAULT NULL,
-  `CITY` varchar(45) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `CATEGORY_ID` int DEFAULT NULL,
-  `ACTIVE` tinyint DEFAULT '1',
-  PRIMARY KEY (`FUNDRAISER_ID`),
-  KEY `funraiser_category_fcfk_idx` (`CATEGORY_ID`),
-  CONSTRAINT `funraiser_category_fcfk` FOREIGN KEY (`CATEGORY_ID`) REFERENCES `category` (`CATEGORY_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `ORGANIZER` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `CAPTION` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `TARGET_FUNDING` int NULL DEFAULT NULL,
+  `CURRENT_FUNDING` int NULL DEFAULT NULL,
+  `CITY` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `CATEGORY_ID` int NULL DEFAULT NULL,
+  `ACTIVE` tinyint NULL DEFAULT 1,
+  PRIMARY KEY (`FUNDRAISER_ID`) USING BTREE,
+  INDEX `funraiser_category_fcfk_idx`(`CATEGORY_ID` ASC) USING BTREE,
+  CONSTRAINT `funraiser_category_fcfk` FOREIGN KEY (`CATEGORY_ID`) REFERENCES `category` (`CATEGORY_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
---
--- Dumping data for table `fundraiser`
---
+-- ----------------------------
+-- Records of fundraiser
+-- ----------------------------
+INSERT INTO `fundraiser` VALUES (1, 'Martha Stewart', 'Cancer Treatment for a Local Resident', 25000, 19000, 'Philadelphia', 2, 1);
+INSERT INTO `fundraiser` VALUES (2, 'EcoFuture', 'Plastic-Free Oceans Initiative', 50000, 22000, 'San Diego', 3, 1);
+INSERT INTO `fundraiser` VALUES (3, 'Creative Minds', 'Public Art Installation', 15000, 8000, 'Portland', 4, 1);
+INSERT INTO `fundraiser` VALUES (4, 'Save the Paws', 'Spay and Neuter Campaign', 12000, 5000, 'Denver', 5, 1);
+INSERT INTO `fundraiser` VALUES (5, 'Bright Horizons', 'STEM Workshops for Girls', 8000, 3000, 'San Jose', 1, 1);
+INSERT INTO `fundraiser` VALUES (6, 'Healing Hands', 'Support for Rare Disease Research', 30000, 15000, 'Orlando', 2, 1);
+INSERT INTO `fundraiser` VALUES (7, 'Green Earth', 'Reforestation in National Parks', 40000, 18000, 'Phoenix', 3, 1);
+INSERT INTO `fundraiser` VALUES (8, 'Healthy Futures', 'Mental Health Support for Youth', 18000, 9000, 'Seattle', 4, 1);
+INSERT INTO `fundraiser` VALUES (9, 'Wildlife Rescue', 'Save Endangered Species', 22000, 11000, 'Austin', 5, 1);
+INSERT INTO `fundraiser` VALUES (10, 'Hope for All', 'Disaster Relief Fund', 35000, 25000, 'Miami', 1, 1);
+INSERT INTO `fundraiser` VALUES (11, 'Bright Minds', 'Education for Underprivileged Children', 27000, 12000, 'Chicago', 2, 1);
+INSERT INTO `fundraiser` VALUES (12, 'Clean Water Initiative', 'Water Purification in Rural Areas', 40000, 20000, 'Houston', 3, 1);
 
 -- ----------------------------
 -- Table structure for donation
@@ -93,5 +98,6 @@ INSERT INTO `donation` VALUES (7, '2024-09-27 13:55:47', 400.00, 'Mia Green', 7)
 INSERT INTO `donation` VALUES (8, '2024-09-28 17:35:56', 600.00, 'Aiden Young', 2);
 INSERT INTO `donation` VALUES (9, '2024-09-29 08:05:14', 900.00, 'Lily King', 1);
 INSERT INTO `donation` VALUES (10, '2024-09-30 16:22:48', 850.00, 'Lucas Adams', 3);
+INSERT INTO `donation` VALUES (11, '2024-10-14 00:45:33', 5.00, 'hhh', 4);
 
--- Dump completed on 2024-10-02  0:38:28
+SET FOREIGN_KEY_CHECKS = 1;
