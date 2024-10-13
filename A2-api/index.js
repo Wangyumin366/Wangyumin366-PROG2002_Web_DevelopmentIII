@@ -5,6 +5,7 @@ const port = 8080;
 const getDBConnection = require('./crowdfunding_db');
 
 app.use(cors());
+app.use(express.json());
 
 // Get the database connection object
 const dbConnection = getDBConnection();
@@ -121,6 +122,49 @@ app.post('/fundraisers/donations', (req, res) => {
     `;
   const date = new Date()
   dbConnection.query(query, [date, amount, giver, fundraiserId], (error, rows) => {
+    if (error) {
+      console.error('Error:', error);
+      return res.status(500).send('System error');
+    }
+    res.json(rows);
+  });
+});
+
+// Insert a new fundraisers
+app.post('/fundraisers', (req, res) => {
+  const { organizer, caption, targetFunding, currentFunding, city, categoryId, active } = req.body;
+
+  if (!organizer || !caption || !city) {
+    res.status(400).json({ error: 'Organizer or caption or city required.' })
+    return
+  }
+
+  if (active == null) {
+    res.status(400).json({ error: 'Active required.' })
+    return
+  }
+
+  if (!isNumber(targetFunding) || targetFunding <= 0) {
+    res.status(400).json({ error: 'Target funding not correct format.' })
+    return
+  }
+
+  if (!isNumber(currentFunding) || currentFunding < 0) {
+    res.status(400).json({ error: 'Current funding not correct format.' })
+    return
+  }
+
+  if (!isNumber(categoryId)) {
+    res.status(400).json({ error: 'CategoryId not correct format.' })
+    return
+  }
+
+  const query = `
+        INSERT INTO fundraiser(ORGANIZER, CAPTION, TARGET_FUNDING, CURRENT_FUNDING, CITY, CATEGORY_ID, ACTIVE) 
+        VALUES(?,?,?,?,?,?,?) 
+    `;
+
+  dbConnection.query(query, [organizer, caption, targetFunding, currentFunding, city, categoryId, active], (error, rows) => {
     if (error) {
       console.error('Error:', error);
       return res.status(500).send('System error');
