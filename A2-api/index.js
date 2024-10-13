@@ -82,6 +82,21 @@ app.get('/fundraisers/:id', (req, res) => {
   });
 });
 
+// Get fundraisers donations
+app.get('/fundraisers/donations/:id', (req, res) => {
+  const query = `
+        SELECT * FROM donation 
+        WHERE FUNDRAISER_ID = ?
+    `;
+  dbConnection.query(query, [req.params.id], (error, rows) => {
+    if (error) {
+      console.error('Error:', error);
+      return res.status(500).send('System error');
+    }
+    res.json(rows);
+  });
+});
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
