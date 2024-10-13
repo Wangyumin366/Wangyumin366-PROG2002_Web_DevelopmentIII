@@ -174,7 +174,7 @@ app.post('/fundraisers', (req, res) => {
 });
 
 // Update a new fundraisers
-app.update('/fundraisers/:id', (req, res) => {
+app.put('/fundraisers/:id', (req, res) => {
   const { organizer, caption, targetFunding, currentFunding, city, categoryId, active } = req.body;
 
   if (!organizer || !caption || !city) {
