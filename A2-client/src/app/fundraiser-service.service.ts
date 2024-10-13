@@ -10,7 +10,7 @@ export interface Fundraiser {
   CURRENT_FUNDING: number;
   CITY: string;
   CATEGORY_ID: number;
-  ACTIVE: boolean;
+  ACTIVE: number;
   NAME?: string;
 }
 

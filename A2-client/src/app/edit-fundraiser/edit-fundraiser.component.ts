@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import {Category, Fundraiser, FundraiserServiceService} from "../fundraiser-service.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
-  selector: 'app-create-fundraiser',
-  templateUrl: './create-fundraiser.component.html',
-  styleUrl: './create-fundraiser.component.css'
+  selector: 'app-edit-fundraiser',
+  templateUrl: './edit-fundraiser.component.html',
+  styleUrl: './edit-fundraiser.component.css'
 })
-export class CreateFundraiserComponent {
+export class EditFundraiserComponent {
   categories: Category[] = [];
   fundraiser: Fundraiser = {
     FUNDRAISER_ID: 0,
@@ -22,8 +22,21 @@ export class CreateFundraiserComponent {
 
   constructor(
     private fundraiserService: FundraiserServiceService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
+
+
+    this.route.params.subscribe((params: any) => {
+      if (params.id) {
+        this.fundraiserService.getFundraiserById(params.id).subscribe(res => {
+          this.fundraiser = res;
+        }, err => {
+          console.log(err)
+        })
+      }
+    })
+
   }
 
   ngOnInit(): void {
@@ -34,7 +47,7 @@ export class CreateFundraiserComponent {
     })
   }
 
-  doCreate(): void {
+  doUpdate(): void {
     if (this.fundraiser.ORGANIZER==="") {
       alert("Please enter ORGANIZER!");
       return;
@@ -70,8 +83,8 @@ export class CreateFundraiserComponent {
 
     this.fundraiser.CATEGORY_ID = Number(this.fundraiser.CATEGORY_ID)
 
-    this.fundraiserService.addFundraiser(this.fundraiser).subscribe(res => {
-      alert("Fundraiser has been successfully created!")
+    this.fundraiserService.editFundraiser(this.fundraiser.FUNDRAISER_ID, this.fundraiser).subscribe(res => {
+      alert("Fundraiser has been successfully updated!")
       this.router.navigate(['/admin'])
     }, err => {
       console.log(err)

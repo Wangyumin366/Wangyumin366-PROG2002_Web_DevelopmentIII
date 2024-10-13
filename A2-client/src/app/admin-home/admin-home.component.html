@@ -37,7 +37,7 @@
       <td>{{fundraiser.ACTIVE ? "active" : "not suspended"}}</td>
       <td>{{fundraiser.NAME}}</td>
       <td>
-        <button style="margin-bottom: 10px">Edit</button>
+        <button style="margin-bottom: 10px" routerLink="/edit-fundraiser/{{fundraiser.FUNDRAISER_ID}}">Edit</button>
         <button>Delete</button>
       </td>
     </tr>

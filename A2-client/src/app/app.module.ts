@@ -11,6 +11,7 @@ import { FormsModule } from "@angular/forms";
 import { DonationComponent } from './donation/donation.component';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { CreateFundraiserComponent } from './create-fundraiser/create-fundraiser.component';
+import { EditFundraiserComponent } from './edit-fundraiser/edit-fundraiser.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { CreateFundraiserComponent } from './create-fundraiser/create-fundraiser
     FundraiserComponent,
     DonationComponent,
     AdminHomeComponent,
-    CreateFundraiserComponent
+    CreateFundraiserComponent,
+    EditFundraiserComponent
   ],
   imports: [
     BrowserModule,
