@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const cors = require('cors'); // Importing CORS to handle cross-origin requests
 const app = express();
 const port = 8080;
@@ -6,6 +7,7 @@ const getDBConnection = require('./crowdfunding_db');
 
 app.use(cors());
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'browser')));
 
 // Get the database connection object
 const dbConnection = getDBConnection();
@@ -252,6 +254,10 @@ app.delete('/fundraisers/:id', (req, res) => {
     res.json(rows);
   });
 });
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "browser", "index.html"));
+})
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
