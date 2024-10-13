@@ -223,6 +223,21 @@ app.update('/fundraisers/:id', (req, res) => {
   });
 });
 
+// Get a specific fundraiser by its ID
+app.delete('/fundraisers/:id', (req, res) => {
+  const query = `
+        DELETE FROM fundraiser 
+        WHERE FUNDRAISER_ID = ?
+    `;
+  dbConnection.query(query, [req.params.id], (error, rows) => {
+    if (error) {
+      console.error('Error:', error);
+      return res.status(500).send('System error');
+    }
+    res.json(rows);
+  });
+});
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
