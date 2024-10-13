@@ -38,7 +38,7 @@
       <td>{{fundraiser.NAME}}</td>
       <td>
         <button style="margin-bottom: 10px" routerLink="/edit-fundraiser/{{fundraiser.FUNDRAISER_ID}}">Edit</button>
-        <button>Delete</button>
+        <button (click)="doDelete(fundraiser)">Delete</button>
       </td>
     </tr>
     </tbody>

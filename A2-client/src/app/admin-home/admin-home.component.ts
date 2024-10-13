@@ -13,10 +13,23 @@ export class AdminHomeComponent {
   }
 
   ngOnInit(): void {
+    this.getAdminFundraisers();
+  }
+
+  getAdminFundraisers() {
     this.fundraiserService.getAdminFundraisers().subscribe(res => {
       this.fundraisers = res;
     }, err => {
       console.log(err)
     })
+  }
+
+  doDelete(fundraiser: Fundraiser): void {
+    if (confirm("Do you want to delete the fundraiser?")) {
+      this.fundraiserService.deleteFundraiser(fundraiser.FUNDRAISER_ID).subscribe(res => {
+        alert("Fundraiser has been successfully deleted!")
+        this.getAdminFundraisers();
+      })
+    }
   }
 }
