@@ -39,7 +39,7 @@
       <p>City: {{fundraiser.CITY}}</p>
       <p>Active: {{fundraiser.ACTIVE ? "active" : "not suspended"}}</p>
       <p>Category: {{fundraiser.NAME}}</p>
-      <a href="./fundraiser.html?id={{fundraiser.FUNDRAISER_ID}}">More</a>
+      <a routerLink="/fundraiser/{{fundraiser.FUNDRAISER_ID}}">More</a>
     </div>
     <p *ngIf="fundraisers.length===0&&isSearch" style='color: #dc1010;font-weight: bolder'>no fundraisers are found!</p>
   </div>

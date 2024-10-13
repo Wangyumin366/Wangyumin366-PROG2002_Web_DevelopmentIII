@@ -35,6 +35,8 @@ export class SearchComponent implements OnInit {
     this.isSearch = true
     this.fundraiserService.searchForFundraisers(this.organizer, this.city, this.category).subscribe(res => {
       this.fundraisers = res;
+    }, err => {
+      console.log(err)
     })
   }
 
