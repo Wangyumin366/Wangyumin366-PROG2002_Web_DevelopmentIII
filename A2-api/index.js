@@ -9,6 +9,10 @@ app.use(cors());
 // Get the database connection object
 const dbConnection = getDBConnection();
 
+function isNumber(value) {
+  return typeof value === 'number' && !isNaN(value);
+}
+
 // Get all categories
 app.get('/categories', (req, res) => {
   const query = 'SELECT * FROM category';
@@ -89,6 +93,34 @@ app.get('/fundraisers/donations/:id', (req, res) => {
         WHERE FUNDRAISER_ID = ?
     `;
   dbConnection.query(query, [req.params.id], (error, rows) => {
+    if (error) {
+      console.error('Error:', error);
+      return res.status(500).send('System error');
+    }
+    res.json(rows);
+  });
+});
+
+// Insert a new fundraisers donation
+app.post('/fundraisers/donations', (req, res) => {
+  const { amount, giver, fundraiserId } = req.body;
+
+  if (!giver || !fundraiserId) {
+    res.status(400).json({ error: 'Amount or fundraiserId required.' })
+    return
+  }
+
+  if (!isNumber(amount) || amount < 5) {
+    res.status(400).json({ error: 'Amount is not correct format.' })
+    return
+  }
+
+  const query = `
+        INSERT INTO donation(DATE, AMOUNT, GIVER, FUNDRAISER_ID) 
+        VALUES(?,?,?,?) 
+    `;
+  const date = new Date()
+  dbConnection.query(query, [date, amount, giver, fundraiserId], (error, rows) => {
     if (error) {
       console.error('Error:', error);
       return res.status(500).send('System error');
