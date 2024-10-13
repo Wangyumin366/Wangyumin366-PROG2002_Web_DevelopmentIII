@@ -42,6 +42,21 @@ app.get('/fundraisers', (req, res) => {
   });
 });
 
+// Get all fundraisers
+app.get('/admin/fundraisers', (req, res) => {
+  const query = `
+        SELECT * FROM fundraiser 
+        LEFT JOIN category ON fundraiser.CATEGORY_ID = category.CATEGORY_ID
+    `;
+  dbConnection.query(query, (error, rows) => {
+    if (error) {
+      console.error('Error:', error);
+      return res.status(500).send('System error');
+    }
+    res.json(rows);
+  });
+});
+
 // Search for fundraisers based on organizer, city, and category
 app.get('/fundraisers/search', (req, res) => {
   const { ORGANIZER, CITY, CATEGORY_ID } = req.query;

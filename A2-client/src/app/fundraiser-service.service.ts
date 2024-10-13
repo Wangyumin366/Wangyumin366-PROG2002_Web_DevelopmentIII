@@ -47,6 +47,10 @@ export class FundraiserServiceService {
     return this.httpClient.get<Fundraiser[]>(`${this.host}/fundraisers`)
   }
 
+  getAdminFundraisers() : Observable<Fundraiser[]> {
+    return this.httpClient.get<Fundraiser[]>(`${this.host}/admin/fundraisers`)
+  }
+
   searchForFundraisers(
     ORGANIZER: string,
     CITY: string,

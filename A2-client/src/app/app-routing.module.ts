@@ -4,6 +4,7 @@ import { HomeComponent } from "./home/home.component";
 import { SearchComponent } from "./search/search.component";
 import { FundraiserComponent } from "./fundraiser/fundraiser.component";
 import { DonationComponent } from "./donation/donation.component";
+import { AdminHomeComponent } from "./admin-home/admin-home.component";
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: 'donation/:id',
     component: DonationComponent
+  },
+  {
+    path: 'admin',
+    component: AdminHomeComponent
   }
 ];
 

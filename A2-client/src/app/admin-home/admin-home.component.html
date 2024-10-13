@@ -1,0 +1,52 @@
+
+<!-- Header with Navigation -->
+<header>
+  <nav>
+    <ul>
+      <li><a routerLink="/admin">Home</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- Main Content with Card List -->
+<main>
+  <img src="assets/images/about-us-header-bg.jpg" style="width: 100%; height: 300px;object-fit: cover">
+  <button style="margin: 10px 0">Add New</button>
+  <table id="card_list" class="table-list">
+    <thead>
+    <tr>
+      <th>Caption</th>
+      <th>ID</th>
+      <th>Organizer</th>
+      <th>Target Funding (AUD)</th>
+      <th>Current Funding</th>
+      <th>City</th>
+      <th>Status</th>
+      <th>Category</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let fundraiser of fundraisers">
+      <td>{{fundraiser.CAPTION}}</td>
+      <td>{{fundraiser.FUNDRAISER_ID}}</td>
+      <td>{{fundraiser.ORGANIZER}}</td>
+      <td>{{fundraiser.TARGET_FUNDING}} AUD</td>
+      <td>{{fundraiser.CURRENT_FUNDING}}</td>
+      <td>{{fundraiser.CITY}}</td>
+      <td>{{fundraiser.ACTIVE ? "active" : "not suspended"}}</td>
+      <td>{{fundraiser.NAME}}</td>
+      <td>
+        <button style="margin-bottom: 10px">Edit</button>
+        <button>Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+</main>
+
+<!-- Footer with Contact Info -->
+<footer>
+  <p>Contact Us: admin&#64;cooperatives.com, Phone: +564-842-9515</p>
+</footer>

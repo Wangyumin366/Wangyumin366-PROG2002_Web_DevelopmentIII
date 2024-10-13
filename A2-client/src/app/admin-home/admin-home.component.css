@@ -1,0 +1,15 @@
+.table-list {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+}
+
+.table-list th, .table-list td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.table-list th {
+  background-color: #f2f2f2;
+  text-align: left;
+}

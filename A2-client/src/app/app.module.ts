@@ -9,6 +9,7 @@ import { FundraiserComponent } from './fundraiser/fundraiser.component';
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
 import { DonationComponent } from './donation/donation.component';
+import { AdminHomeComponent } from './admin-home/admin-home.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { DonationComponent } from './donation/donation.component';
     HomeComponent,
     SearchComponent,
     FundraiserComponent,
-    DonationComponent
+    DonationComponent,
+    AdminHomeComponent
   ],
   imports: [
     BrowserModule,
